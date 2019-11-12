@@ -1,0 +1,44 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<style>
+#div1 {
+  width: 400px;
+  height: 300px;
+  padding: 10px;
+  border: 1px solid #aaaaaa;
+}
+</style>
+<script>
+function allowDrop(ev) {
+  ev.preventDefault();
+}
+
+function drag(ev) {
+  ev.dataTransfer.setData("text", ev.target.id);
+}
+
+function drop(ev) {
+  ev.preventDefault();
+  var file = ev.dataTransfer.files[0];
+  try {
+    dump("Drop " + file.name +", " + file.type + "\n");
+  } catch(e) {};
+  
+
+  var img = document.createElement('img');
+  img.src = URL.createObjectURL(file);
+  document.getElementById('div1').appendChild(img); 
+}
+</script>
+</head>
+<body>
+
+<p>Drag the image into the rectangle:</p>
+
+<div id="div1" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+<br>
+
+</body>
+</html>
+
